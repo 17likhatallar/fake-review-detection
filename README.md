@@ -1,0 +1,56 @@
+# Fake Product Review Detection
+
+Predicts whether a product review is real or fake using Machine Learning. Includes a Streamlit demo with confidence scores, clue words and a history table.
+
+## Problem
+Fake reviews mislead shoppers. This project trains models to spot them from the text alone.
+
+## Dataset
+"Fake Reviews Dataset" from Kaggle (40,432 reviews; OR = original/real, CG = computer-generated/fake).
+Download it from Kaggle and place "fake reviews dataset.csv" in this folder.
+Credit: [add the dataset author name and Kaggle link here]
+
+## Methodology
+1. Removed duplicate reviews and cleaned the text (lowercase, removed punctuation and common words)
+2. Converted text to numbers using TF-IDF
+3. Split the data: 80% training, 20% testing
+4. Trained and compared three models: Logistic Regression, Naive Bayes, Linear SVM
+5. Built a Streamlit demo using Logistic Regression, which gives confidence scores
+
+## Results
+| Model | Accuracy | Precision | Recall | F1 |
+|---|---|---|---|---|
+| Logistic Regression | 0.862 | 0.870 | 0.852 | 0.861 |
+| Naive Bayes | 0.842 | 0.816 | 0.884 | 0.848 |
+| Linear SVM | 0.863 | 0.856 | 0.874 | 0.865 |
+
+## Observations
+- Fake reviews were shorter on average (about 61 words vs 74).
+- Star ratings were almost the same for fake and real reviews, so they were not a useful clue.
+- Fake reviews used a tidy, product-report style (words like "problem", "materials", "downside"); real reviews sounded more casual ("maybe", "quite", "plus").
+
+## Demo features
+- Confidence percentage for each result
+- "Not sure" answer when the evidence is weak
+- Clue words that show why the model decided
+- Clear button and history table of checked reviews
+
+## Limitations
+- The fake reviews in this dataset are computer-generated, so the model learns that writing style. It can misjudge short reviews written by real people, and it may not catch fake reviews written by humans.
+- No text-only detector can be 100% certain, so uncertain cases are marked "Not sure".
+- English only. Words outside the model's vocabulary are ignored.
+
+## Future work
+Extend the model to Hindi and Hinglish reviews using a locally collected, labelled dataset.
+
+## How to run
+
+    pip install -r requirements.txt
+    python train.py
+    streamlit run app.py
+
+## Files
+- train.py: trains and compares the three models
+- app.py: Streamlit demo
+- test_model.py: quick test of the saved model
+# fake-review-detection
